@@ -169,25 +169,7 @@ class BuilderBase {
     }
     return g;
   }
-
-  std::vector<std::pair<float, NodeID_>> ReadAnswerFile() {
-    std::vector<std::pair<float, NodeID_>> ret;
-    std::ifstream afile(cli_.answer_file_name());
-    NodeID_ id;
-    float score;
-
-    if (!afile.is_open()) {
-      std::cout<< "Couldn't open answer file " << cli_.answer_file_name() << std::endl;
-      std::exit(-1);
-    }
-
-    for (int i = 0; i < 5; i++) {
-      afile >> score >> id;
-      ret.push_back(std::make_pair(score, id));
-    }
-
-    return ret;
-  }
+  
 };
 
 #endif  // BUILDER_H_
