@@ -8,19 +8,18 @@
 
 using namespace std;
 
+typedef int32_t NodeID;
+typedef CSRGraph<NodeID> Graph;
+typedef BuilderBase<NodeID, NodeID> Builder;
+
 int main(int argc, char* argv[]) {
-	string ofname;
-
-	cout<<"output file path: ";
-	cin>>ofname;
-
 	CLIterApp cli(argc, argv, ".", 1);
 	if (!cli.ParseArgs())
 		return -1;
 	Builder b(cli);
 	Graph g = b.MakeGraph();
 
-	ofstream out(ofname);
+	ofstream out(cli.o_file_name());
 
 	for (int i = 0; i < g.num_edges(); i++) {
 		out<<"1";
@@ -30,9 +29,9 @@ int main(int argc, char* argv[]) {
 			out<<endl;
 	}
 
-	for (int i = 0; i < g.num_nodes(); i++) {
+	for (int i = 0; i < g.num_nodes() + 1; i++) {
 		out<<g.in_vertex_table_[i];
-		if (i != g.num_nodes() - 1)
+		if (i != g.num_nodes())
 			out<<" ";
 		else
 			out<<endl;

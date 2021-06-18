@@ -34,7 +34,7 @@ class CLBase {
 
   int scale_ = -1;
   std::string filename_ = "";
-  std::string answer_file_name_ = "";
+  std::string o_file_name_ = "";
   bool symmetrize_ = false;
   bool uniform_ = false;
 
@@ -56,7 +56,7 @@ class CLBase {
          argc_(argc), argv_(argv), name_(name) {
     AddHelpLine('h', "", "print this help message");
     AddHelpLine('f', "file", "load graph from file");
-    AddHelpLine('c', "answer_file", "load answer file would be compared");
+    AddHelpLine('o', "o_file", "load output file would be compared");
   }
 
   bool ParseArgs() {
@@ -78,7 +78,7 @@ class CLBase {
     switch (opt) {
       case 'f': filename_ = std::string(opt_arg);           break;
       case 'h': PrintUsage();                               break;
-      case 'c': answer_file_name_ = std::string(opt_arg);   break;
+      case 'o': o_file_name_ = std::string(opt_arg);   break;
     }
   }
 
@@ -91,7 +91,7 @@ class CLBase {
   }
 
   std::string filename() const { return filename_; }
-  std::string answer_file_name() const { return answer_file_name_; }
+  std::string o_file_name() const { return o_file_name_; }
 };
 
 
