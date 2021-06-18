@@ -29,7 +29,7 @@ class CLBase {
   int argc_;
   char** argv_;
   std::string name_;
-  std::string get_args_ = "f:g:hsu:c:";
+  std::string get_args_ = "f:g:hsu:o:";
   std::vector<std::string> help_strings_;
 
   int scale_ = -1;
