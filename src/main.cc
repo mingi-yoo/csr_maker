@@ -19,7 +19,15 @@ int main(int argc, char* argv[]) {
 	Builder b(cli);
 	Graph g = b.MakeGraph();
 
-	ofstream out(cli.o_file_name());
+	string csr_file = cli.o_file_name();
+	string x_file = "x_" + cli.o_file_name();
+
+	int zero_row = 0;
+	int previous = -1;
+	int feature = cli.num_trials();
+
+	// make csr file
+	ofstream out(csr_file);
 
 	for (int i = 0; i < g.num_edges(); i++) {
 		out<<"1";
@@ -35,6 +43,11 @@ int main(int argc, char* argv[]) {
 			out<<" ";
 		else
 			out<<endl;
+		
+		if (previous == g.in_vertex_table_[i])
+			zero_row++;
+		
+		previous = g.in_vertex_table_[i];
 	}
 
 	for (int i = 0; i < g.num_edges(); i++) {
@@ -44,6 +57,14 @@ int main(int argc, char* argv[]) {
 		else
 			out<<endl;
 	}
+
+	// make x file
+	ofstream x_out(x_file);
+
+	x_out<<feature<<endl<<feature<<endl;
+	x_out<<g.num_nodes()<<endl;
+	x_out<<zero_row<<endl;
+
 
 	return 0;
 }
