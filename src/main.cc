@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <algorithm>
 
 #include "command_line.h"
 #include "builder.h"
@@ -25,10 +26,12 @@ int main(int argc, char* argv[]) {
 	int zero_row = 0;
 	int previous = -1;
 	int feature = cli.num_trials();
+	bool sort_ = true;
 
 	// make csr file
 	ofstream out(csr_file);
 
+	//VAL
 	for (int i = 0; i < g.num_edges(); i++) {
 		out<<"1";
 		if (i != g.num_edges() - 1)
@@ -37,6 +40,7 @@ int main(int argc, char* argv[]) {
 			out<<endl;
 	}
 
+	//ROW_PTR
 	for (int i = 0; i < g.num_nodes() + 1; i++) {
 		out<<g.in_vertex_table_[i];
 		if (i != g.num_nodes())
@@ -50,12 +54,36 @@ int main(int argc, char* argv[]) {
 		previous = g.in_vertex_table_[i];
 	}
 
-	for (int i = 0; i < g.num_edges(); i++) {
-		out<<g.in_edge_table_[i];
-		if (i != g.num_edges() - 1)
-			out<<" ";
-		else
-			out<<endl;
+	//COL_IDX	
+	if (sort_){
+		int counter = 0;
+		for (int i = 0; i < g.num_nodes() + 1; i++){
+			 vector<int> temp;
+			 int beg = g.in_vertex_table_[i];
+			 int end = g.in_vertex_table_[i+1];
+			 for (int j = beg; j < end; j++)
+				temp.push_back(g.in_edge_table_[j]);
+
+			 sort(temp.begin(), temp.end());
+
+			 for (int j = 0; j < temp.size(); j++){
+				out<<temp[j]; counter++;
+				if (counter != g.num_edges() - 1)
+					out<<" ";
+				else
+					out<<endl;
+			 }
+		}
+
+	}
+	else {
+		for (int i = 0; i < g.num_edges(); i++) {
+			out<<g.in_edge_table_[i];
+			if (i != g.num_edges() - 1)
+				out<<" ";
+			else
+				out<<endl;
+		}
 	}
 
 	// make x file
