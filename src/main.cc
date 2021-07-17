@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
 			 for (int j = 0; j < temp.size(); j++){
 				//cout<<temp[j]<<" ";
 				out<<temp[j]; counter++;
-				if (counter != g.num_edges() - 1)
+				if (counter != g.num_edges())
 					out<<" ";
 				else
 					out<<endl;
@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
 	else {
 		for (int i = 0; i < g.num_edges(); i++) {
 			out<<g.in_edge_table_[i];
-			if (i != g.num_edges())
+			if (i != g.num_edges() - 1)
 				out<<" ";
 			else
 				out<<endl;
