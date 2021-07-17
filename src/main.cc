@@ -57,7 +57,7 @@ int main(int argc, char* argv[]) {
 	//COL_IDX	
 	if (sort_){
 		int counter = 0;
-		for (int i = 0; i < g.num_nodes() + 1; i++){
+		for (int i = 0; i < g.num_nodes(); i++){
 			 vector<int> temp;
 			 int beg = g.in_vertex_table_[i];
 			 int end = g.in_vertex_table_[i+1];
@@ -65,14 +65,15 @@ int main(int argc, char* argv[]) {
 				temp.push_back(g.in_edge_table_[j]);
 
 			 sort(temp.begin(), temp.end());
-
+			 //cout<<i<<": ";
 			 for (int j = 0; j < temp.size(); j++){
+				//cout<<temp[j]<<" ";
 				out<<temp[j]; counter++;
 				if (counter != g.num_edges() - 1)
 					out<<" ";
 				else
 					out<<endl;
-			 }
+			 }//cout<<endl;
 		}
 
 	}
