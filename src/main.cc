@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
 	else {
 		for (int i = 0; i < g.num_edges(); i++) {
 			out<<g.in_edge_table_[i];
-			if (i != g.num_edges() - 1)
+			if (i != g.num_edges())
 				out<<" ";
 			else
 				out<<endl;
